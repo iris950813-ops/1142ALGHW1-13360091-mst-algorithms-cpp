@@ -34,7 +34,7 @@ public:
         // 2. 可加入 path compression
         
         // 3. 回傳集合代表元
-        return x; // 請修改
+        return parent[x]; // 請修改
     }
 
     bool unite(int a, int b) {
@@ -53,7 +53,7 @@ public:
             parent[rootA]=rootB;
         }else{
             parent[rootB]=rootA;
-            if(rankv[rootA]==rankv[rb]){
+            if(rankv[rootA]==rankv[rootB]){
                 rankv[rootA]++;
             }
         return true; // 請修改
@@ -105,9 +105,13 @@ vector<Edge>mst;
     //   - 否則略過
     //   - 當 mst.size() == n - 1 時停止
 for(const auto&edge:edges){
-    if(dsu.utite(edu.u,edu.v)){
-        mst.push_back(edge);
-        if(mst.size()==n-1)break;}}
+        if(dsu.unite(edge.u,edge.v)){
+            mst.push_back(edge);
+            printEdge(edge);
+            cout << "\n";
+            if(mst.size()==n-1)break;
+        }
+    }
     printMST(mst);
     cout << "\n";
 }
@@ -133,13 +137,13 @@ void primMST(int n, const vector<vector<pair<int, int>>>& adj, int start = 1) {
 
     // TODO:
     // Step 1. 將起點 start 設為已加入 MST
-visited[start]=true;
+inMST[start]=true;
     
     // TODO:
     // Step 2. 把 start 相鄰的邊放入 priority queue
-for(const auto&e:adj[start]){
-    pq.push({e.w,w.u,e.v});
-}
+for(const auto&[v, w]:adj[start]){
+        pq.push({w, start, v});
+    }
     
     cout << "Selection steps:\n";
 
@@ -150,14 +154,19 @@ for(const auto&e:adj[start]){
     //   - 否則加入此邊到 mst，並把新頂點標記進 MST
     //   - 再將新頂點可到達的候選邊放入 pq
 while(!pq.empty()&&mst.size()<n-1){
-    auto[weight,u,v]=pd.top();
-    pd.pop;
-    if(visited[v])continue;
-    visited[v]=true;
-    mst.push_back({weight,u,v});
-    for(const auto&e:adj[v]){
-        if(!visited[e.v]){
-            if(!visited[e,v])pd.push({e.w,w.u,e.v});}}
+        auto[weight,u,v]=pq.top();
+        pq.pop();
+        if(inMST[v])continue;
+        inMST[v]=true;
+        mst.push_back({u,v,weight});
+        printEdge({u,v,weight});
+        cout << "\n";
+        for(const auto&[next_v, next_w]:adj[v]){
+            if(!inMST[next_v]){
+                pq.push({next_w, v, next_v});
+            }
+        }
+    }
            
     printMST(mst);
     cout << "\n";
@@ -199,11 +208,13 @@ vector<int>cheapest(n+1,-1);
             int set1=dsu.find(edges[i].u);
             int set2=dsu.find(edges[i].v);
             if(set1==set2)continue;
-            if(cheapest[set1]==-1||edges[i].weight<edge[cheapest[set1].weight){
+            if(cheapest[set1]==-1||edges[i].w<edges[cheapest[set1]].w){
                 cheapest[set1]=i;
             }
-            if(cheapest[set2]==-1||edges[i].weight<edge[cheapest[set2].weight){
-                cheapest[set2]=i;}}
+           if(cheapest[set2]==-1||edges[i].w<edges[cheapest[set2]].w){
+                cheapest[set2]=i;
+            }
+        
         bool merged = false;
 
         // TODO:
@@ -212,16 +223,21 @@ vector<int>cheapest(n+1,-1);
         //   - 加入 mst
         //   - numComponents--
         //   - merged = true
-if(int i=1;i<=n;i++){if(cheapest[i]!=-1){
-    int edgeIdx=cheapest[i];
-    int u=edges[edgeIdx].u;
-    int v=edges[edgeIdx].v;
-    if(dsu.utite(u,v)){
-        mst.push_back(edges[edgeIdx]);
-        numComponents--;
-        merged=true;}}}
-        
-        if (!merged) break;
+for(int i=1;i<=n;i++){
+            if(cheapest[i]!=-1){
+                int edgeIDX=cheapest[i];
+                int u=edges[edgeIDX].u;
+                int v=edges[edgeIDX].v;
+                if(dsu.unite(u,v)){
+                    mst.push_back(edges[edgeIDX]);
+                    printEdge(edges[edgeIDX]);
+                    cout << "\n";
+                    numComponents--;
+                    merged=true;
+                }
+            }
+        }
+
 
         cout << "\n";
         round++;
