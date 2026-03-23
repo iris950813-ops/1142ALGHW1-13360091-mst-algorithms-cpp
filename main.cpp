@@ -35,7 +35,7 @@ public:
 
     bool unite(int a, int b) {
         int rootA = find(a);
-        int rootB = find(b);
+        int rootB = find(b); 
 
         if (rootA == rootB) return false;
 
