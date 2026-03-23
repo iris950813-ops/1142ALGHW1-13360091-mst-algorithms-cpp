@@ -213,12 +213,12 @@ vector<int>cheapest(n+1,-1);
         //   - numComponents--
         //   - merged = true
 if(int i=1;i<=n;i++){if(cheapest[i]!=-1){
-    int edgeIDX=cheapest[i];
-    int u=edge[edgeIDX].u;
-    int v=edge[edgeIDX].v;
+    int edgeIdx=cheapest[i];
+    int u=edges[edgeIdx].u;
+    int v=edges[edgeIdx].v;
     if(dsu.utite(u,v)){
         mst.push_back(edges[edgeIdx]);
-        numComponents;
+        numComponents--;
         merged=true;}}}
         
         if (!merged) break;
