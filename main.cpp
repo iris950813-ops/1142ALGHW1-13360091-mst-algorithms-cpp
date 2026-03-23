@@ -96,6 +96,7 @@ void kruskalMST(int n, vector<Edge> edges) {
     // TODO:
     // Step 2. 建立 DSU 物件
 DSU dsu(n);
+vector<Edge>mst;
     cout << "Selection steps:\n";
 
     // TODO:
@@ -106,7 +107,7 @@ DSU dsu(n);
 for(const auto&edge:edges){
     if(dsu.utite(edu.u,edu.v)){
         mst.push_back(edge);
-        if(mst.size()==n-1)break;}
+        if(mst.size()==n-1)break;}}
     printMST(mst);
     cout << "\n";
 }
