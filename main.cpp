@@ -157,9 +157,8 @@ while(!pq.empty()&&mst.size()<n-1){
     mst.push_back({weight,u,v});
     for(const auto&e:adj[v]){
         if(!visited[e.v]){
-            if(!visited[e,v])pd.push
-            pd.push(next_edge);
-        }}}
+            if(!visited[e,v])pd.push({e.w,w.u,e.v});}}
+           
     printMST(mst);
     cout << "\n";
 }
