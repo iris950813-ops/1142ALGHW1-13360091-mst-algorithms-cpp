@@ -40,22 +40,27 @@ public:
     bool unite(int a, int b) {
         // TODO:
         // 1. 找 a, b 的根
-        int rootA=find(a);
-        int rootB=find(b);
+        int rootA = find(a);
+        int rootB = find(b);
+
+        if (rootA == rootB) {
         
         // 2. 若相同代表已在同一集合，回傳 false
-        if(rootA==rootB){
+       
             return false;
         }
         
         // 3. 否則合併兩集合，回傳 true
-        if(rankv[rootA]<rankv[rootB]){
-            parent[rootA]=rootB;
-        }else{
-            parent[rootB]=rootA;
-            if(rankv[rootA]==rankv[rootB]){
-                rankv[rootA]++;
-            }
+        if (rankv[rootA] < rankv[rootB]) {
+            parent[rootA] = rootB;
+        } else if (rankv[rootA] > rankv[rootB]) {
+            parent[rootB] = rootA;
+        } else {
+            parent[rootB] = rootA;
+            rankv[rootA]++;
+        }
+
+        
         return true; // 請修改
     }
 };
