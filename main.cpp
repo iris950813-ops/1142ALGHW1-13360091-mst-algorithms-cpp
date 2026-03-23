@@ -137,8 +137,8 @@ visited[start]=true;
     
     // TODO:
     // Step 2. 把 start 相鄰的邊放入 priority queue
-for(const auto&edge:adj[start]){
-    pq.push(edge);
+for(const auto&e:adj[start]){
+    pq.push({e.w,w.u,e.v});
 }
     
     cout << "Selection steps:\n";
@@ -155,8 +155,9 @@ while(!pq.empty()&&mst.size()<n-1){
     if(visited[v])continue;
     visited[v]=true;
     mst.push_back({weight,u,v});
-    for(const auto&next_edge:adj[v]){
-        if(!visited[next_edge.to]){
+    for(const auto&e:adj[v]){
+        if(!visited[e.v]){
+            if(!visited[e,v])pd.push
             pd.push(next_edge);
         }}}
     printMST(mst);
