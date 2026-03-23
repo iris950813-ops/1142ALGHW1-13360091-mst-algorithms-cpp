@@ -211,14 +211,14 @@ vector<int>cheapest(n+1,-1);
         //   - 加入 mst
         //   - numComponents--
         //   - merged = true
-if(int i=1;i<=n;i++){\if(cheapest[i]!=-1){
+if(int i=1;i<=n;i++){if(cheapest[i]!=-1){
     int edgeIDX=cheapest[i];
     int u=edge[edgeIDX].u;
     int v=edge[edgeIDX].v;
     if(dsu.utite(u,v)){
         mst.push_back(edges[edgeIdx]);
         numComponents;
-        merged=true;
+        merged=true;}}}
         
         if (!merged) break;
 
